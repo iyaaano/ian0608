@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>JDM Garage Shop</title>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script type="text/javascript" src="data.json"></script>
+	<script type="text/javascript" src="cart.js"></script>
+
+	<script>
+
+		$("document").ready(function(){
+			
+			var tData = JSON.parse(data);
+			
+			
+			for(var i = 0; i < tData.product.length; i++){
+				document.getElementById("flex-container").innerHTML += '<li class="cards__item"> <div class="card"> <div class="card__image" style="background-image:url(images/'+tData.product[i].image+')"></div><div class="card__content"><div class="card__title">'+tData.product[i].name+'</div><p class="card__text">$'+tData.product[i].price+'</p><button data-name="'+tData.product[i].name+'" data-price="'+tData.product[i].price+'" class="add-to-cart btn btn-primary">Add to cart</button></div></div></li>';
+			}
+
+			
+			for(var a = 0; a < tData.product.length; a++){
+				document.getElementById("slider").innerHTML += '<div class="mySlides fade"><div class="numbertext">1 / 3</div><img src="images/'+tData.product[a].image+'" ><div class="text">Caption Text</div></div>';
+			}
+			
+			
+			
+			var modal = document.getElementById("cart");
+
+
+			var btn = document.getElementById("myBtn");
+
+			
+			var span = document.getElementsByClassName("close")[0];
+
+			 
+			btn.onclick = function() {
+			modal.style.display = "block";
+			}
+
+			
+			span.onclick = function() {
+			modal.style.display = "none";
+			}
+
+			
+			window.onclick = function(event) {
+			if (event.target == modal) {
+			modal.style.display = "none";
+			}
+			}
+			
+			
+		});
+		
+	</script>
+</head>
+<body>
+
+  <h1>
+    JDM Garage Shop
+  </h1>
+
+  <div class="navbar">
+    <a class="active" href="#"><i class="fa fa-fw fa-home"></i>Home</a> 
+    <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
+    <a href="#"><i class="fas fa-tools"></i> Parts</a>  
+    <a href="#"><i class="fas fa-wrench"></i> Service</a>
+    <a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
+    <a href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+</div>
+
+  <div class="slideshow-container">
+
+    <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="r34.jpg" style="width:100%">
+          <div class="text">Nissan GTR R34 </div>
+      </div>
+      
+    <div class="mySlides fade">
+          <div class="numbertext"></div>
+            <img src="r35.jpg" style="width:100%">
+          <div class="text">Nissan GTR R35</div>
+      </div>
+      
+    <div class="mySlides fade">
+          <div class="numbertext"></div>
+          <img src="s15.jpg" style="width:100%">
+          <div class="text">Nissan Silvia S15</div>
+      </div>
+    
+      <div class="mySlides fade">
+        <div class="numbertext"></div>
+        <img src="mk4.jpg" style="width:100%">
+        <div class="text">Toyota Supra Mk4</div>
+    </div>
+
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+  <span class="dot" onclick="currentSlide(4)"></span>
+</div>
+<center>
+<nav class="nav">
+    <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-primary" id="myBtn" data-target="#cart"><i class="fa fa-shopping-cart"></i> Cart (<span class="total-count"></span>)</button><button class="clear-cart btn btn-danger">Clear Cart</button></div>
+    </div>
+</nav>
+</center>
+
+<ul class="cards" id="flex-container">
+ 
+</ul>
+	
+ <!-- Modal -->
+<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
+        
+      </div>
+      <div class="modal-body">
+        <table class="show-cart table">
+          
+        </table>
+        <div>Total price: $<span class="total-cart"></span></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Order now</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    var slideIndex = 0;
+    showSlides();
+  
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides, 2500); 
+    }
+    </script>
+
+
+  <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates cum repellendus quidem tempora ratione saepe? Repellat nam atque, exercitationem alias quidem similique facilis maxime id sunt! Eaque numquam saepe perferendis.</h5>
+  <h6>This is my SampleSite for the assestment.</h6>
+
+
+</body>
+</html>
